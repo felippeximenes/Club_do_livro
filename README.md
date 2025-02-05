@@ -1,3 +1,137 @@
+
+🇺🇸 - English
+
+# MySQL Database Project
+
+![Captura de tela 2025-02-04 165213](https://github.com/user-attachments/assets/e14508e4-0830-4907-b0c1-da74603e73ef)
+
+## Description
+
+This project was developed to create a management system for books, sales, stock, and sellers using MySQL. The structure includes related tables, data manipulation, entity integration, and queries to extract relevant information.
+
+---
+
+## Database Structure
+
+### Created Tables
+
+- **LIVROS:** Stores information about books.
+
+  - Fields: `ID_LIVRO`, `NOME_LIVRO`, `AUTORIA`, `EDITORA`, `CATEGORIA`, `PREÇO`.
+
+- **ESTOQUE:** Manages the quantity of book copies.
+
+  - Fields: `ID_LIVRO`, `QTD_ESTOQUE`.
+
+- **VENDEDORES:** Contains data about sellers.
+
+  - Fields: `ID_VENDEDOR`, `NOME_VENDEDOR`.
+
+- **VENDAS:** Records completed sales.
+
+  - Fields: `ID_PEDIDO`, `ID_VENDEDOR`, `ID_LIVRO`, `QTD_VENDIDA`, `DATA_VENDA`.
+
+### Constraints and Keys
+
+- **Primary Keys:** Defined for each table to ensure uniqueness.
+- **Foreign Keys:**
+  - `CE_ESTOQUE_LIVROS`: Links the `ESTOQUE` table to the `LIVROS` table.
+  - Referential integrity with `ON DELETE NO ACTION` and `ON UPDATE NO ACTION`.
+
+---
+
+## Data Manipulation
+
+### Insertions
+
+Initial data insertion in `LIVROS`, `VENDEDORES`, `VENDAS`, and `ESTOQUE`. Examples:
+
+```sql
+INSERT INTO LIVROS VALUES
+(1, "Percy Jackson e o Ladrao de Raios", "Rick Riordan", "Intrinseca", "Aventura", 34.65);
+
+INSERT INTO VENDEDORES VALUES (1, 'Paula Rabelo');
+
+INSERT INTO VENDAS VALUES (1, 3, 7, 1, '2020-11-02');
+```
+
+### Updates
+
+Price adjustment for books with a discount:
+
+```sql
+UPDATE LIVROS SET PREÇO = 0.9 * PREÇO;
+```
+
+### Deletions
+
+Deleting specific records:
+
+```sql
+DELETE FROM LIVROS WHERE ID_LIVRO = 8;
+```
+
+---
+
+## Performed Queries
+
+### Simple Query
+
+Example of selecting books by category:
+
+```sql
+SELECT * FROM LIVROS WHERE CATEGORIA = "POESIA" AND NOT (AUTORIA = "Luís Vaz de Camões" OR AUTORIA = "Gabriel Pedrosa");
+```
+
+### Aggregation Queries
+
+Example of summing sales per seller:
+
+```sql
+SELECT VENDAS.ID_VENDEDOR, VENDEDORES.NOME_VENDEDOR, SUM(VENDAS.QTD_VENDIDA)
+FROM VENDAS INNER JOIN VENDEDORES
+ON VENDAS.ID_VENDEDOR = VENDEDORES.ID_VENDEDOR
+GROUP BY VENDAS.ID_VENDEDOR;
+```
+
+### Complex Queries
+
+Checking books without registered sales:
+
+```sql
+SELECT LIVROS.NOME_LIVRO, VENDAS.QTD_VENDIDA
+FROM LIVROS LEFT JOIN VENDAS
+ON LIVROS.ID_LIVRO = VENDAS.ID_LIVRO
+WHERE VENDAS.QTD_VENDIDA IS NULL;
+```
+
+### Aggregation and Sorting
+
+Query to identify the highest sale:
+
+```sql
+SELECT MAX(QTD_VENDIDA) FROM VENDAS;
+```
+
+---
+
+## Key Features
+
+- **Table Integration:** Use of `JOIN` to consolidate data.
+- **Statistical Analysis:** Aggregation functions such as `SUM` and `MAX`.
+- **Data Integrity:** Definition of constraints to maintain referential integrity.
+
+---
+
+## Conclusion
+
+This project demonstrates best practices in creating and managing relational databases using MySQL, addressing aspects such as modeling, complex queries, updates, and table integration for a book and sales management application.
+
+____________
+
+🇧🇷 - Português 
+
+
 # Projeto de Banco de Dados MySQL
 
 
